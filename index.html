@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>AXIOM — Portfolio | Cinematic Typing</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Additional cinematic typing styles */
+    .typing-container {
+      position: relative;
+    }
+    
+    .typing-text {
+      position: relative;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeInTyping 0.5s ease forwards;
+    }
+    
+    .typing-text .typed-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: cursorBlink 0.8s step-end infinite;
+      box-shadow: 0 0 8px rgba(201,168,76,0.6);
+    }
+    
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    @keyframes fadeInTyping {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Glow effect for typing line */
+    .typing-text::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transition: width 0.6s ease;
+    }
+    
+    .typing-text.typing-complete::before {
+      width: 100%;
+    }
+    
+    /* Cinematic typewriter sound effect visual */
+    .type-pulse {
+      animation: typePulse 0.1s ease-out;
+    }
+    
+    @keyframes typePulse {
+      0% { text-shadow: 0 0 0 rgba(201,168,76,0); }
+      50% { text-shadow: 0 0 4px rgba(201,168,76,0.5); }
+      100% { text-shadow: 0 0 0 rgba(201,168,76,0); }
+    }
+    
+    /* Letter glow on hover */
+    .typing-text:hover .char {
+      transition: all 0.2s ease;
+    }
+    
+    .char {
+      display: inline-block;
+      transition: all 0.1s ease;
+    }
+    
+    .char:hover {
+      color: var(--gold);
+      text-shadow: 0 0 8px var(--gold);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR ELEMENTS -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- AMBIENT EFFECTS -->
+<div id="grain"></div>
+<div id="vignette"></div>
+<div id="mouse-glow"></div>
+
+<!-- FLOATING ORBS -->
+<div class="floating-orbs">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo" id="loader-logo">PONTEMAYOR</div>
+  <div class="loader-bar-wrap">
+    <div class="loader-bar" id="loader-bar"></div>
+  </div>
+  <div class="loader-percent" id="loader-percent">0%</div>
+  <div class="loader-sub">Initializing Experience</div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo glitch-text">RUSTOM</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#timeline">Journey</a>
+    <a href="#capabilities">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-cta pulse-ring" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid" id="hero-grid"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="hero-content" id="hero-content">
+    <div class="hero-eyebrow">Creative Developer &amp; Digital Architect</div>
+    <h1 class="hero-title">
+      <span>CRAFT</span>
+      WITHOUT
+      <br>LIMITS
+    </h1>
+    <p class="hero-subtitle">Designing worlds at the intersection of art &amp; technology</p>
+    <div class="hero-cta-row">
+      <button class="cta-primary" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">View Work</button>
+      <span class="cta-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:none">Get in Touch</span>
+    </div>
+  </div>
+
+  <div class="hero-image-container">
+    <img src="ecd2cdfd-3b39-4798-8d56-09e56b0607eb-removebg-preview.png" alt="Rustom Portrait" class="hero-portrait">
+  </div>
+
+  <div id="hero-3d">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION WITH CINEMATIC TYPING ANIMATION -->
+<section id="about" class="neon-border">
+  <div class="section-inner">
+    <div class="section-label reveal">001 &mdash; About Me</div>
+    <div class="about-me-grid">
+      <div class="about-me-image reveal-left">
+        <div class="about-image-container magnetic">
+          <img src="8eecb31b-a472-4e9d-9817-83e74a9b30c0.jpg" alt="Profile Photo" class="profile-image">
+          <div class="image-border"></div>
+        </div>
+      </div>
+      <div class="about-me-content reveal-right">
+        <h2 class="about-me-heading">Hi, I'm <em>Rustom</em></h2>
+        <p class="about-me-subtitle">Creative Developer & Digital Artist</p>
+        
+        <!-- Cinematic Typing Containers -->
+        <div class="typing-container">
+          <p class="about-me-text typing-text" id="typing-text-1"></p>
+          <p class="about-me-text typing-text" id="typing-text-2"></p>
+        </div>
+        
+        <div class="about-me-skills">
+          <span class="skill-tag magnetic">Three.js</span>
+          <span class="skill-tag magnetic">React</span>
+          <span class="skill-tag magnetic">UI/UX</span>
+          <span class="skill-tag magnetic">3D Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / PORTFOLIO SECTION -->
+<!-- WORK / PORTFOLIO SECTION - CINEMATIC CAROUSEL -->
+<section id="work" class="neon-border">
+  <div class="section-inner">
+    <div class="work-header">
+      <div>
+        <div class="section-label reveal">002 &mdash; Selected Work</div>
+        <h2 class="work-heading reveal">Projects</h2>
+      </div>
+      <div class="work-filter reveal">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Design</button>
+        <button class="filter-btn">Dev</button>
+        <button class="filter-btn">3D</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Infinite Carousel -->
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+      
+      <!-- Original Set of Cards -->
+      <a href="project1.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="Picture1.png" alt="Tech Innovation" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#4080ff; color:#4080ff;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">Featured &mdash; 2024</div>
+            <div class="card-title">TECH <br>INNOVATION</div>
+            <div class="card-desc">A tool designed to help safely lower or pick guyabano fruits from the tree without damaging the fruit or climbing the tree.</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project2.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="1000022962.jpg" alt="Final Defense" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#ff6060; color:#ff6060;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">Identity &mdash; 2024</div>
+            <div class="card-title">FINAL<br>DEFENSE</div>
+            <div class="card-desc">A final defense is the last stage of a research or thesis presentation where students present their completed study before a panel of evaluators.</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project3.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="1000022961.jpg" alt="Thesis Defense" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#c9a84c; color:#c9a84c;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">E-commerce &mdash; 2023</div>
+            <div class="card-title">THESIS<br>DEFENSE</div>
+            <div class="card-desc">A thesis defense is a formal presentation where students explain and defend their research study before a panel of evaluators</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project4.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="Picture4.png" alt="Watering System" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#00ffe0; color:#00ffe0;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">SaaS &mdash; 2023</div>
+            <div class="card-title">WATERING <br>INTEGRATING SYSTEM</div>
+            <div class="card-desc">Its help the people preserve and manage their water resources efficiently.</div>
+          </div>
+        </div>
+      </a>
+      
+      <!-- DUPLICATED SET for seamless infinite loop -->
+      <a href="project1.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="Picture1.png" alt="Tech Innovation" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#4080ff; color:#4080ff;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">Featured &mdash; 2024</div>
+            <div class="card-title">TECH <br>INNOVATION</div>
+            <div class="card-desc">A tool designed to help safely lower or pick guyabano fruits from the tree without damaging the fruit or climbing the tree.</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project2.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="1000022962.jpg" alt="Final Defense" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#ff6060; color:#ff6060;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">Identity &mdash; 2024</div>
+            <div class="card-title">FINAL<br>DEFENSE</div>
+            <div class="card-desc">A final defense is the last stage of a research or thesis presentation where students present their completed study before a panel of evaluators.</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project3.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="1000022961.jpg" alt="Thesis Defense" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#c9a84c; color:#c9a84c;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">E-commerce &mdash; 2023</div>
+            <div class="card-title">THESIS<br>DEFENSE</div>
+            <div class="card-desc">A thesis defense is a formal presentation where students explain and defend their research study before a panel of evaluators</div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="project4.html" style="text-decoration:none; color:inherit;">
+        <div class="carousel-card">
+          <div class="motion-trail"></div>
+          <div class="card-bg">
+            <img src="Picture4.png" alt="Watering System" class="card-image">
+          </div>
+          <div class="card-dot" style="background:#00ffe0; color:#00ffe0;"></div>
+          <div class="card-gradient"></div>
+          <div class="card-arrow"><svg viewBox="0 0 14 14"><path d="M2 12L12 2M12 2H6M12 2V8" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="card-content">
+            <div class="card-tag">SaaS &mdash; 2023</div>
+            <div class="card-title">WATERING <br>INTEGRATING SYSTEM</div>
+            <div class="card-desc">Its help the people preserve and manage their water resources efficiently.</div>
+          </div>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+  
+  <!-- Speed indicator -->
+  <div class="carousel-speed-indicator">
+    <div class="speed-dot"></div>
+    <div class="speed-dot"></div>
+    <div class="speed-dot"></div>
+    <div class="speed-dot"></div>
+    <div class="speed-dot"></div>
+  </div>
+</section>
+
+<!-- TIMELINE / JOURNEY SECTION -->
+<section id="timeline" class="neon-border">
+  <div class="section-inner">
+    <div class="section-label reveal">003 &mdash; Journey</div>
+    <h2 class="timeline-heading reveal">ACADEMIC</h2>
+    
+    <div class="timeline-layout">
+      <!-- Left side - Timeline -->
+      <div class="timeline-track">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2015 &mdash; 2016</div>
+          <div class="timeline-role">BAGO OSHIRO ELEMENTARY SCHOOLS</div>
+          <div class="timeline-co">STUDENT</div>
+          <div class="timeline-desc">Bago Oshiro Tugbok District Davao City</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2020 &mdash; 2021</div>
+          <div class="timeline-role">MINTAL COMPREHENSIVE HIGH SCHOOL</div>
+          <div class="timeline-co">STUDENT</div>
+          <div class="timeline-desc">Mintal Tugbok District Davao City</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2022 &mdash; 2023</div>
+          <div class="timeline-role">MINTAL COMPREHENSIVE SENIOR HIGH SCHOOL</div>
+          <div class="timeline-co">TVL ICT</div>
+          <div class="timeline-desc">Mintal Tugbok District Davao City</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">CSS</span><span class="timeline-tag">Canvas</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2023 &mdash; 2026</div>
+          <div class="timeline-role">UNDERGRADE</div>
+          <div class="timeline-co">BTVTED-CP</div>
+          <div class="timeline-desc">KLM 10. Catalunan pequeno Davao City</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">HTML/CSS</span><span class="timeline-tag">JavaScript</span>
+            <span class="timeline-tag">Python</span><span class="timeline-tag">C++</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right side - GIF Holder -->
+      <div class="timeline-gif-holder reveal-right">
+        <div class="gif-container">
+          <img src="gif.gif.gif" alt="Journey Animation" class="timeline-gif">
+          <div class="gif-overlay"></div>
+          <div class="gif-border"></div>
+          <div class="gif-glow"></div>
+          <div class="gif-label">My Journey</div>
+        </div>
+        <div class="gif-caption">
+          <span class="caption-icon">✦</span>
+          <p>Growing and learning every step of the way</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES / SKILLS SECTION -->
+<section id="capabilities" class="neon-border">
+  <div class="section-inner">
+    <div class="section-label reveal">004 &mdash; Capabilities</div>
+    <h2 class="work-heading reveal">Skills</h2>
+    <div class="caps-grid">
+      <div class="cap-card magnetic" style="transition-delay:0s">
+        <div class="cap-num">01</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M2 12h20"/></svg></div>
+        <div class="cap-title">Creative Development</div>
+        <div class="cap-desc">Canva, and custom shader programming for cutting-edge web experiences.</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:94%"></div></div>
+      </div>
+      <div class="cap-card magnetic" style="transition-delay:0.1s">
+        <div class="cap-num">02</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="cap-title">UI/UX Engineering</div>
+        <div class="cap-desc">Firebase, PHP, and component architecture with obsessive attention to interaction design and accessibility.</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:97%"></div></div>
+      </div>
+      <div class="cap-card magnetic" style="transition-delay:0.2s">
+        <div class="cap-num">03</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><path d="M12 22V2M2 8.5l10 7 10-7"/></svg></div>
+        <div class="cap-title">Computer Systems Servicing</div>
+        <div class="cap-desc">Specialized course under the Information and Communications Technology (ICT) strand</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:90%"></div></div>
+      </div>
+      <div class="cap-card magnetic" style="transition-delay:0.3s">
+        <div class="cap-num">04</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="cap-title">Visual Design</div>
+        <div class="cap-desc">Brand systems, typography, and visual identity with a strong conceptual foundation and artistic eye.</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:88%"></div></div>
+      </div>
+      <div class="cap-card magnetic" style="transition-delay:0.4s">
+        <div class="cap-num">05</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="cap-title">Backend & APIs</div>
+        <div class="cap-desc">Node.js, PostgreSQL, GraphQL, and serverless architectures for scalable, performant systems.</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:82%"></div></div>
+      </div>
+      <div class="cap-card magnetic" style="transition-delay:0.5s">
+        <div class="cap-num">06</div>
+        <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div class="cap-title">3D & Spatial</div>
+        <div class="cap-desc">Blender, and real-time 3D for immersive product visualization and digital installations.</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:79%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="neon-border">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-label reveal" style="justify-content:center">005 &mdash; Contact</div>
+      <h2 class="contact-heading reveal">
+        Let's Build<br><span>Something</span><br>Extraordinary
+      </h2>
+      <p class="contact-subhead reveal">Have a project in mind? I'd love to hear about it. Let's create something the world hasn't seen yet.</p>
+      <div class="contact-links reveal">
+        <a class="contact-link magnetic" href="mailto:hello@axiom.dev">hello@axiom.dev</a>
+        <a class="contact-link magnetic" href="#">LinkedIn</a>
+        <a class="contact-link magnetic" href="#">GitHub</a>
+        <a class="contact-link magnetic" href="#">Dribbble</a>
+      </div>
+      <form class="contact-form reveal" onsubmit="return false">
+        <div class="form-row">
+          <input class="form-field" type="text" placeholder="Your Name">
+          <input class="form-field" type="email" placeholder="Email Address">
+        </div>
+        <input class="form-field" type="text" placeholder="Project Brief">
+        <textarea class="form-field" placeholder="Tell me about your vision..."></textarea>
+        <button class="form-submit pulse-ring">Send Message →</button>
+      </form>
+    </div>
+    <div class="contact-bg-text">AXIOM</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo glitch-text">RUSTOM</div>
+  <div class="footer-copy">© 2024 Rustom Pontemayor &mdash; All rights reserved</div>
+  <div class="footer-socials">
+    <div class="footer-social magnetic">tw</div>
+    <div class="footer-social magnetic">li</div>
+    <div class="footer-social magnetic">gh</div>
+    <div class="footer-social magnetic">dr</div>
+  </div>
+</footer>
+
+<script>
+  /* =====================================================
+     CINEMATIC TYPING ANIMATION
+     ===================================================== */
+  // Cinematic Typing Animation
+  (function() {
+    const text1 = "I'm a passionate student and aspiring creative developer who enjoys creating digital experiences that combine creativity and technology. I have experience in web development, UI/UX design, and interactive projects, and I continue to improve my skills in frontend development, 3D design, and cinematic web experiences.";
+    
+    const text2 = "When I'm not coding, you'll find me exploring new technologies, sketching ideas, or collaborating with other creatives to push the boundaries of what's possible on the web.";
+    
+    const element1 = document.getElementById('typing-text-1');
+    const element2 = document.getElementById('typing-text-2');
+    
+    let typingStarted = false;
+    
+    function createCursor() {
+      const cursor = document.createElement('span');
+      cursor.className = 'typed-cursor';
+      cursor.innerHTML = '&nbsp;'; // Add non-breaking space for proper spacing
+      return cursor;
+    }
+    
+    function typeText(element, text, onComplete) {
+      let index = 0;
+      element.innerHTML = '';
+      const cursor = createCursor();
+      element.appendChild(cursor);
+      
+      function addCharacter() {
+        if (index < text.length) {
+          const char = text.charAt(index);
+          
+          if (char === ' ') {
+            // Create a space span with explicit width
+            const spaceSpan = document.createElement('span');
+            spaceSpan.className = 'char';
+            spaceSpan.innerHTML = '&nbsp;';
+            spaceSpan.style.display = 'inline-block';
+            spaceSpan.style.width = '0.3em'; // Proper space width
+            element.insertBefore(spaceSpan, cursor);
+          } else {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = char;
+            element.insertBefore(charSpan, cursor);
+            
+            charSpan.style.animation = 'typePulse 0.1s ease-out';
+            setTimeout(() => charSpan.style.animation = '', 100);
+          }
+          
+          index++;
+          
+          let delay = 35 + Math.random() * 15;
+          if (char === '.' || char === '!' || char === '?') delay = 200;
+          if (char === ',' || char === ';') delay = 90;
+          if (char === ' ') delay = 20;
+          
+          setTimeout(addCharacter, delay);
+        } else {
+          if (onComplete) onComplete();
+        }
+      }
+      
+      addCharacter();
+    }
+    
+    function startTypingSequence() {
+      typeText(element1, text1, () => {
+        setTimeout(() => {
+          typeText(element2, text2, () => {});
+        }, 500);
+      });
+    }
+    
+    const aboutSection = document.getElementById('about');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !typingStarted) {
+          typingStarted = true;
+          setTimeout(startTypingSequence, 300);
+          observer.unobserve(aboutSection);
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    observer.observe(aboutSection);
+  })();
+
+  /* =====================================================
+     LOADING SCREEN
+     ===================================================== */
+  (function(){
+    const bar = document.getElementById('loader-bar');
+    const pctEl = document.getElementById('loader-percent');
+    let p = 0;
+    const iv = setInterval(() => {
+      p += Math.random() * 4 + 1;
+      if(p >= 100) { p = 100; clearInterval(iv); setTimeout(hideLoader, 300); }
+      bar.style.width = p + '%';
+      pctEl.textContent = Math.floor(p) + '%';
+    }, 60);
+    function hideLoader(){
+      const loader = document.getElementById('loader');
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 900);
+    }
+  })();
+
+  /* ===== CUSTOM CURSOR ===== */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  const glow = document.getElementById('mouse-glow');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    glow.style.left = mx + 'px'; glow.style.top = my + 'px';
+  });
+  (function animRing(){
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a, button, [data-tilt], .card, .contact-link, .footer-social, .skill-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '6px'; cursor.style.height = '6px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+      ring.style.borderColor = 'rgba(201,168,76,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(201,168,76,0.5)';
+    });
+  });
+
+  /* ===== PARTICLE BACKGROUND ===== */
+  (function(){
+    const canvas = document.getElementById('particles-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, pts = [];
+    function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<80; i++){
+      pts.push({
+        x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.2 + 0.3, vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25,
+        a: Math.random()
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      pts.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
+        if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(201,168,76,${p.a * 0.6})`;
+        ctx.fill();
+      });
+      for(let i=0; i<pts.length; i++){
+        for(let j=i+1; j<pts.length; j++){
+          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if(d < 100){
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(201,168,76,${0.08 * (1 - d/100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* ===== HERO 3D OBJECT ===== */
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function resize(){
+      const parent = canvas.parentElement;
+      canvas.width = parent.offsetWidth; canvas.height = parent.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    const verts = [[-1,1.618,0],[1,1.618,0],[-1,-1.618,0],[1,-1.618,0],[0,-1,1.618],[0,1,1.618],[0,-1,-1.618],[0,1,-1.618],[1.618,0,-1],[1.618,0,1],[-1.618,0,-1],[-1.618,0,1]].map(v => { const l = Math.hypot(v[0],v[1],v[2]); return [v[0]/l, v[1]/l, v[2]/l]; });
+    const faces = [[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
+    let rx = 0, ry = 0, mouseX = 0.5, mouseY = 0.5;
+    document.addEventListener('mousemove', e => { mouseX = e.clientX / window.innerWidth; mouseY = e.clientY / window.innerHeight; });
+    function rotX(v,a){ return [v[0], v[1]*Math.cos(a)-v[2]*Math.sin(a), v[1]*Math.sin(a)+v[2]*Math.cos(a)]; }
+    function rotY(v,a){ return [v[0]*Math.cos(a)+v[2]*Math.sin(a), v[1], -v[0]*Math.sin(a)+v[2]*Math.cos(a)]; }
+    function project(v,W,H,scale){ const z = v[2] + 3; return [W/2 + v[0]*scale/z, H/2 + v[1]*scale/z, z]; }
+    let t0 = 0;
+    function draw(ts){
+      const dt = (ts - t0) * 0.001; t0 = ts;
+      rx += ((mouseY - 0.5) * 0.4 - rx) * 0.04;
+      ry += (dt * 0.3 + (mouseX - 0.5) * 0.6);
+      const W = canvas.width, H = canvas.height, scale = Math.min(W, H) * 1.1;
+      ctx.clearRect(0,0,W,H);
+      const rotated = verts.map(v => rotY(rotX(v, rx), ry));
+      const projected = rotated.map(v => project(v, W, H, scale));
+      const sorted = faces.map(f => ({ f, z: (rotated[f[0]][2] + rotated[f[1]][2] + rotated[f[2]][2]) / 3 })).sort((a,b) => a.z - b.z);
+      sorted.forEach(({f}) => {
+        const [a,b,c] = f;
+        const pa = projected[a], pb = projected[b], pc = projected[c];
+        const nx = (pb[1]-pa[1])*(pc[0]-pa[0]) - (pb[0]-pa[0])*(pc[1]-pa[1]);
+        if(nx < 0) return;
+        ctx.beginPath();
+        ctx.moveTo(pa[0], pa[1]); ctx.lineTo(pb[0], pb[1]); ctx.lineTo(pc[0], pc[1]); ctx.closePath();
+        const grad = ctx.createLinearGradient(pa[0], pa[1], pc[0], pc[1]);
+        grad.addColorStop(0, `rgba(201,168,76,0.08)`); grad.addColorStop(1, `rgba(100,160,255,0.05)`);
+        ctx.fillStyle = grad; ctx.fill();
+        ctx.strokeStyle = `rgba(201,168,76,0.4)`; ctx.lineWidth = 0.7; ctx.stroke();
+      });
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  /* ===== TILT EFFECT ===== */
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(800px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) scale3d(1.02,1.02,1)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)'; card.style.transition = 'transform 0.5s ease'; });
+    card.addEventListener('mouseenter', () => { card.style.transition = ''; });
+  });
+
+  /* ===== SCROLL REVEAL ===== */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .timeline-item, .cap-card');
+  const obs2 = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => obs2.observe(el));
+
+  /* ===== PARALLAX ===== */
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const grid = document.getElementById('hero-grid');
+    if(grid) grid.style.transform = `translateY(${scrolled * 0.3}px)`;
+    const heroImg = document.querySelector('.hero-image-container');
+    if(heroImg) heroImg.style.transform = `translateY(${scrolled * 0.15}px)`;
+  });
+
+  /* ===== FILTER BUTTONS ===== */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  /* ===== MOUSE GLOW ===== */
+  document.addEventListener('mousemove', e => {
+    const section = document.elementFromPoint(e.clientX, e.clientY)?.closest('section');
+    let color = 'rgba(201,168,76,0.06)';
+    if(section) { if(section.id === 'about') color = 'rgba(0,255,224,0.04)'; if(section.id === 'work') color = 'rgba(64,128,255,0.05)'; if(section.id === 'contact') color = 'rgba(201,168,76,0.07)'; }
+    glow.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+  });
+
+  /* ===== ENHANCED PARTICLES ===== */
+  function createEnhancedParticles() {
+    const hero = document.getElementById('hero');
+    if(!hero) return;
+    for(let i=0; i<15; i++){
+      const particle = document.createElement('div');
+      particle.className = 'enhanced-particle';
+      const size = Math.random() * 4 + 2;
+      const colors = ['#c9a84c', '#00ffe0', '#4080ff'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.cssText = `width:${size}px; height:${size}px; background:${color}; border-radius:50%; left:${Math.random()*100}%; top:${Math.random()*100}%; animation-delay:${Math.random()*5}s; animation-duration:${Math.random()*5+4}s; box-shadow:0 0 ${size*3}px ${color};`;
+      hero.appendChild(particle);
+    }
+  }
+  createEnhancedParticles();
+
+  /* ===== RIPPLE EFFECT ===== */
+  document.querySelectorAll('.cta-primary, .form-submit, .nav-cta').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size/2;
+      const y = e.clientY - rect.top - size/2;
+      ripple.style.cssText = `position:absolute; width:${size}px; height:${size}px; left:${x}px; top:${y}px; background:rgba(255,255,255,0.3); border-radius:50%; transform:scale(0); animation:rippleEffect 0.6s ease-out; pointer-events:none;`;
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+  const rippleStyle = document.createElement('style');
+  rippleStyle.textContent = `@keyframes rippleEffect { to { transform: scale(4); opacity: 0; } }`;
+  document.head.appendChild(rippleStyle);
+
+  /* ===== CARD SEQUENTIAL REVEAL ===== */
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => { if(entry.isIntersecting){ setTimeout(() => { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }, idx * 100); cardObserver.unobserve(entry.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.card').forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(30px)'; card.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; cardObserver.observe(card); });
+  
+  console.log('🎬 Cinematic Typing Animation Active - All systems ready!');
+</script>
+</body>
+</html>

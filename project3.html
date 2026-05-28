@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THESIS DEFENSE — Project Details</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --gold:#c9a84c;
+    --gold2:#f0d080;
+    --ink:#05070d;
+    --ink2:#0a0d18;
+    --glass:rgba(255,255,255,0.04);
+    --glass-border:rgba(255,255,255,0.08);
+    --text:rgba(255,255,255,0.92);
+    --muted:rgba(255,255,255,0.45);
+    --accent:#00ffe0;
+  }
+  
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Josefin Sans',sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+  }
+
+  /* Custom Cursor */
+  #cursor{
+    position:fixed;width:10px;height:10px;
+    background:var(--gold);
+    border-radius:50%;
+    pointer-events:none;z-index:10000;
+    transform:translate(-50%,-50%);
+    transition:width .2s,height .2s;
+    mix-blend-mode:difference;
+  }
+  #cursor-ring{
+    position:fixed;width:36px;height:36px;
+    border:1px solid rgba(201,168,76,0.5);
+    border-radius:50%;
+    pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:transform .12s ease-out,width .25s,height .25s;
+  }
+
+  /* Back button */
+  .back-btn {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    transition: all 0.3s;
+    background: rgba(5,7,13,0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .back-btn:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    transform: translateX(-5px);
+  }
+
+  .back-arrow {
+    transition: transform 0.3s;
+  }
+
+  .back-btn:hover .back-arrow {
+    transform: translateX(-3px);
+  }
+
+  /* Hero Section */
+  .project-hero {
+    height: 70vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg,#0d1b35 0%,#1a2c4e 40%,#0a1020 100%);
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: heroFloat 6s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes heroFloat {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
+  }
+  
+  .project-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(64,128,255,0.1) 0%, transparent 70%);
+  }
+
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 70%);
+  }
+  
+  .project-hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: heroContentReveal 1s ease forwards;
+  }
+
+  @keyframes heroContentReveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .project-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .project-tag::before,
+  .project-tag::after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+  
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 140px);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+  }
+  
+  .project-title span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  }
+  
+  .project-subtitle {
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-top: 20px;
+    font-weight: 300;
+  }
+
+  /* Scroll indicator */
+  .scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+
+  @keyframes bounceDown {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  .scroll-down span {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .scroll-down svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--muted);
+  }
+
+  /* Main Content */
+  .project-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 48px;
+  }
+  
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+  }
+  
+  .project-info h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    letter-spacing: 0.03em;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .project-info h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin-top: 12px;
+  }
+  
+  .project-info p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+    position: relative;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255,255,255,0.06);
+  }
+  
+  .project-details {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .project-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  
+  .detail-item {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .detail-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .detail-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  .detail-value {
+    font-size: 15px;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+  
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  
+  .tech-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 18px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .tech-tag:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Image Gallery */
+  .gallery {
+    margin: 80px 0;
+  }
+  
+  .gallery h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    letter-spacing: 0.03em;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .gallery h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin-top: 12px;
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .gallery-item {
+    aspect-ratio: 16/9;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(5,7,13,0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+
+  .gallery-overlay span {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.08);
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+  
+  .gallery-item.featured {
+    grid-column: span 2;
+    aspect-ratio: 21/9;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .lightbox-close:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  /* Next Project */
+  .next-project {
+    text-align: center;
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+
+  .next-project::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: var(--gold);
+  }
+  
+  .next-project a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.3s;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .next-project a:hover {
+    color: var(--gold);
+    transform: translateX(10px);
+  }
+
+  .next-project a::after {
+    content: ' →';
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .next-project a:hover::after {
+    opacity: 1;
+  }
+  
+  .next-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* Reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  .project-footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  @media(max-width: 768px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .gallery-item.featured {
+      grid-column: span 1;
+      aspect-ratio: 16/9;
+    }
+    
+    .project-content {
+      padding: 40px 24px;
+    }
+
+    .back-btn {
+      top: 16px;
+      left: 16px;
+      padding: 10px 18px;
+      font-size: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<a href="index.html" class="back-btn">
+  <span class="back-arrow">←</span> Back to Portfolio
+</a>
+
+<section class="project-hero">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="project-hero-content">
+    <div class="project-tag">Featured Project — 2024</div>
+    <h1 class="project-title">
+      THESIS 
+      <span>DEFENSE</span>
+    </h1>
+    <p class="project-subtitle">JACKFRUIT LOWERING SYSTEM DEVICE</p>
+  </div>
+  <div class="scroll-down">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<div class="project-content">
+  <div class="project-grid">
+    <div class="project-info reveal">
+      <h2>About This Project</h2>
+      <p>The thesis defense about the Jackfruit Lowering System Device focuses on presenting an innovative solution designed to help farmers safely and efficiently harvest jackfruits from tall trees. The study highlights the device's design, functionality, and benefits in reducing fruit damage, improving safety, and making the harvesting process easier and more effective.</p>
+      <p>During the final defense, the researchers explain the objectives, methodology, results, and significance of the project while answering questions and recommendations from the panel of evaluators. The device aims to revolutionize traditional harvesting methods by introducing a controlled lowering mechanism that prevents fruit bruising and eliminates the need for dangerous climbing.</p>
+      <div class="tech-stack">
+        <span class="tech-tag">Arduino Uno R3</span>
+        <span class="tech-tag">HX711</span>
+        <span class="tech-tag">Load Cell Sensor</span>
+        <span class="tech-tag">Arduino IDE</span>
+        <span class="tech-tag">C++</span>
+        <span class="tech-tag">Embedded Systems</span>
+        <span class="tech-tag">IoT</span>
+      </div>
+    </div>
+    
+    <div class="project-details reveal">
+      <div class="detail-item">
+        <div class="detail-label">Client / Target Users</div>
+        <div class="detail-value">Local Farmers & Agricultural Workers</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">My Role</div>
+        <div class="detail-value">Lead Developer, System Designer & Presenter</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Development Timeline</div>
+        <div class="detail-value">4 Months (Research to Final Defense)</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Core Technologies</div>
+        <div class="detail-value">Arduino Uno R3, HX711 Load Cell Amplifier, Arduino IDE, C++</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Contact / Portfolio</div>
+        <div class="detail-value" style="color: var(--gold);">FB: Rustom Pontemayor</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery reveal">
+    <h2>Project Gallery</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item featured" onclick="openLightbox(this)">
+        <img src="1000022961.jpg" alt="Thesis Defense Presentation" loading="lazy">
+        <div class="gallery-overlay"><span>Thesis Defense Presentation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-project reveal">
+    <div class="next-label">Next Project</div>
+    <a href="project4.html">WATERING SYSTEM DEVICE →</a>
+  </div>
+</div>
+
+<div class="project-footer">
+  <p>© 2024 Rustom Pontemayor — Thesis Defense Project | Jackfruit Lowering System Device</p>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+  <img src="" alt="Lightbox Image" id="lightboxImg">
+</div>
+
+<script>
+// Custom Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mx = e.clientX;
+  my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .gallery-item, .tech-tag').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '6px';
+    cursor.style.height = '6px';
+    ring.style.width = '52px';
+    ring.style.height = '52px';
+    ring.style.borderColor = 'rgba(201,168,76,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '10px';
+    cursor.style.height = '10px';
+    ring.style.width = '36px';
+    ring.style.height = '36px';
+    ring.style.borderColor = 'rgba(201,168,76,0.5)';
+  });
+});
+
+// Hero Particles
+const heroParticles = document.getElementById('heroParticles');
+for (let i = 0; i < 30; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'hero-particle';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 6 + 's';
+  particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+  particle.style.width = (Math.random() * 3 + 1) + 'px';
+  particle.style.height = particle.style.width;
+  heroParticles.appendChild(particle);
+}
+
+// Lightbox functionality
+function openLightbox(element) {
+  const img = element.querySelector('img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  if (img) {
+    lightboxImg.src = img.src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close lightbox with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+  }
+});
+
+// Scroll Reveal Animation
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+// Smooth scroll for scroll indicator
+document.querySelector('.scroll-down')?.addEventListener('click', () => {
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: 'smooth'
+  });
+});
+
+console.log('🎬 Thesis Defense Project Page — Fully Enhanced with Cinematic Effects');
+</script>
+</body>
+</html>
