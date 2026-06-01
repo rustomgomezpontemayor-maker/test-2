@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:ital,wght@0,100;0,300;0,400;0,700;1,100&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     /* Additional cinematic typing styles */
     .typing-container {
@@ -91,6 +91,91 @@
       color: var(--gold);
       text-shadow: 0 0 8px var(--gold);
       transform: scale(1.02);
+    }
+
+    /* 3D Skills Section Styles */
+    #capabilities {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      background: #0a0a14;
+    }
+
+    #three-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .section-label-virtual {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      color: #7ec8ff;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 10;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .skills-3d-title {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      color: white;
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-shadow: 0 0 25px rgba(0,160,255,0.7);
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      padding: 0 25px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 10;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .info-overlay-3d {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      color: rgba(220, 220, 255, 0.7);
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      background: rgba(10, 10, 20, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 6px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(100, 200, 255, 0.25);
+      pointer-events: none;
+      z-index: 10;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 700px) {
+      .skills-3d-title {
+        font-size: 1.8rem;
+        top: 20px;
+        right: 20px;
+        padding: 0 18px;
+      }
+      .section-label-virtual {
+        top: 20px;
+        left: 20px;
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -201,7 +286,6 @@
   </div>
 </section>
 
-<!-- WORK / PORTFOLIO SECTION -->
 <!-- WORK / PORTFOLIO SECTION - CINEMATIC CAROUSEL -->
 <section id="work" class="neon-border">
   <div class="section-inner">
@@ -438,56 +522,12 @@
   </div>
 </section>
 
-<!-- CAPABILITIES / SKILLS SECTION -->
-<section id="capabilities" class="neon-border">
-  <div class="section-inner">
-    <div class="section-label reveal">004 &mdash; Capabilities</div>
-    <h2 class="work-heading reveal">Skills</h2>
-    <div class="caps-grid">
-      <div class="cap-card magnetic" style="transition-delay:0s">
-        <div class="cap-num">01</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M2 12h20"/></svg></div>
-        <div class="cap-title">Creative Development</div>
-        <div class="cap-desc">Canva, and custom shader programming for cutting-edge web experiences.</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:94%"></div></div>
-      </div>
-      <div class="cap-card magnetic" style="transition-delay:0.1s">
-        <div class="cap-num">02</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="cap-title">UI/UX Engineering</div>
-        <div class="cap-desc">Firebase, PHP, and component architecture with obsessive attention to interaction design and accessibility.</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:97%"></div></div>
-      </div>
-      <div class="cap-card magnetic" style="transition-delay:0.2s">
-        <div class="cap-num">03</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><path d="M12 22V2M2 8.5l10 7 10-7"/></svg></div>
-        <div class="cap-title">Computer Systems Servicing</div>
-        <div class="cap-desc">Specialized course under the Information and Communications Technology (ICT) strand</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:90%"></div></div>
-      </div>
-      <div class="cap-card magnetic" style="transition-delay:0.3s">
-        <div class="cap-num">04</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-        <div class="cap-title">Visual Design</div>
-        <div class="cap-desc">Brand systems, typography, and visual identity with a strong conceptual foundation and artistic eye.</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:88%"></div></div>
-      </div>
-      <div class="cap-card magnetic" style="transition-delay:0.4s">
-        <div class="cap-num">05</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="cap-title">Backend & APIs</div>
-        <div class="cap-desc">Node.js, PostgreSQL, GraphQL, and serverless architectures for scalable, performant systems.</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:82%"></div></div>
-      </div>
-      <div class="cap-card magnetic" style="transition-delay:0.5s">
-        <div class="cap-num">06</div>
-        <div class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-        <div class="cap-title">3D & Spatial</div>
-        <div class="cap-desc">Blender, and real-time 3D for immersive product visualization and digital installations.</div>
-        <div class="cap-bar-wrap"><div class="cap-bar" style="--pct:79%"></div></div>
-      </div>
-    </div>
-  </div>
+<!-- CAPABILITIES / SKILLS SECTION - 3D -->
+<section id="capabilities">
+  <div class="section-label-virtual">004 — CAPABILITIES</div>
+  <h2 class="skills-3d-title">SKILLS</h2>
+  <div class="info-overlay-3d">🌀 drag to rotate • scroll to zoom</div>
+  <div id="three-container"></div>
 </section>
 
 <!-- CONTACT SECTION -->
@@ -531,11 +571,440 @@
   </div>
 </footer>
 
+<!-- Three.js Import Map -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.126.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.126.0/examples/jsm/"
+  }
+}
+</script>
+
+<!-- COMPLETE 3D SKILLS SCRIPT - NO TEXT OVERLAP -->
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+const container = document.getElementById('three-container');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a14);
+scene.fog = new THREE.FogExp2(0x0a0a14, 0.00008);
+
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.5, 500);
+camera.position.set(8, 3.5, 14);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.sortObjects = true; // Enable object sorting
+container.appendChild(renderer.domElement);
+
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(container.clientWidth, container.clientHeight);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0';
+labelRenderer.domElement.style.left = '0';
+labelRenderer.domElement.style.pointerEvents = 'none';
+labelRenderer.domElement.style.zIndex = '5';
+container.appendChild(labelRenderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.rotateSpeed = 0.8;
+controls.target.set(0, 0.2, 0);
+controls.update();
+controls.maxPolarAngle = Math.PI / 1.8;
+controls.minDistance = 6;
+controls.maxDistance = 28;
+
+// Lighting
+scene.add(new THREE.AmbientLight(0x404066));
+const dirLight = new THREE.DirectionalLight(0xbfd9ff, 1.2);
+dirLight.position.set(5, 12, 8);
+dirLight.castShadow = true;
+dirLight.receiveShadow = true;
+dirLight.shadow.mapSize.width = 1024;
+dirLight.shadow.mapSize.height = 1024;
+dirLight.shadow.camera.near = 0.5;
+dirLight.shadow.camera.far = 60;
+scene.add(dirLight);
+scene.add(new THREE.PointLight(0x3366ff, 1.5, 20));
+scene.add(new THREE.PointLight(0xaa44ff, 1.2, 18));
+scene.add(new THREE.PointLight(0x00ccff, 1.0, 20));
+
+// Platform
+const platformGeo = new THREE.CylinderGeometry(2.8, 3.0, 0.25, 64);
+const platformMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.75, emissive: new THREE.Color(0x080814) });
+const platform = new THREE.Mesh(platformGeo, platformMat);
+platform.position.set(0, -1.45, 0);
+platform.receiveShadow = true;
+platform.castShadow = true;
+platform.renderOrder = 0;
+scene.add(platform);
+
+// Glowing ring
+const ringGeo = new THREE.TorusGeometry(2.95, 0.06, 32, 128);
+const ringMat = new THREE.MeshStandardMaterial({ color: 0x3388ff, emissive: new THREE.Color(0x112244), roughness: 0.3, metalness: 0.8 });
+const ring = new THREE.Mesh(ringGeo, ringMat);
+ring.rotation.x = Math.PI / 2;
+ring.position.set(0, -1.32, 0);
+ring.receiveShadow = true;
+ring.renderOrder = 1;
+scene.add(ring);
+
+// Particles
+const particlesGeo = new THREE.BufferGeometry();
+const particlesCount = 400;
+const posArray = new Float32Array(particlesCount * 3);
+for (let i = 0; i < particlesCount * 3; i += 3) {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 3.8 + Math.random() * 2.2;
+  const height = (Math.random() * 5) - 1.8;
+  posArray[i] = Math.cos(angle) * radius;
+  posArray[i+1] = height;
+  posArray[i+2] = Math.sin(angle) * radius;
+}
+particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+const particlesMat = new THREE.PointsMaterial({ 
+  size: 0.04, 
+  color: 0x88aaff, 
+  blending: THREE.AdditiveBlending, 
+  depthWrite: false,
+  depthTest: true 
+});
+const particles = new THREE.Points(particlesGeo, particlesMat);
+particles.renderOrder = 2;
+scene.add(particles);
+
+// Skills data
+const skills = [
+  { num: '01', title: 'Creative Development', desc: 'Canva, custom shader programming for cutting-edge web experiences.', pct: 94, color: '#4d7cff' },
+  { num: '02', title: 'UI/UX Engineering', desc: 'Firebase, PHP, component architecture & obsessive interaction design.', pct: 97, color: '#5c9eff' },
+  { num: '03', title: 'Computer Systems Servicing', desc: 'Specialized course under ICT strand', pct: 90, color: '#4ad9ff' },
+  { num: '04', title: 'Visual Design', desc: 'Brand systems, typography, visual identity with artistic eye.', pct: 88, color: '#b97cff' },
+  { num: '05', title: 'Backend & APIs', desc: 'Node.js, PostgreSQL, GraphQL, serverless architectures.', pct: 82, color: '#ff7b9c' },
+  { num: '06', title: '3D & Spatial', desc: 'Blender, real-time 3D for immersive product visualization.', pct: 79, color: '#ffad4a' }
+];
+
+const cardGroup = new THREE.Group();
+cardGroup.renderOrder = 10;
+scene.add(cardGroup);
+
+// Store all cards for depth-based opacity
+const allCardObjects = [];
+
+function createIconSVG(index) {
+  const icons = [
+    '<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2a10 10 0 0 1 0 20" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2 12h20" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    '<svg viewBox="0 0 24 24" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    '<svg viewBox="0 0 24 24" width="18" height="18"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 22V2M2 8.5l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    '<svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    '<svg viewBox="0 0 24 24" width="18" height="18"><polyline points="16 18 22 12 16 6" fill="none" stroke="currentColor" stroke-width="1.8"/><polyline points="8 6 2 12 8 18" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    '<svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>'
+  ];
+  return icons[index % icons.length];
+}
+
+function createCard(skill, angle, radius = 4.1) {
+  const group = new THREE.Group();
+  const width = 1.9;
+  const height = 2.5;
+  const depth = 0.15;
+  
+  // Card body
+  const bodyGeo = new THREE.BoxGeometry(width, height, depth);
+  const bodyMat = new THREE.MeshStandardMaterial({ 
+    color: 0x12121f, 
+    roughness: 0.25, 
+    metalness: 0.7, 
+    emissive: new THREE.Color(0x080814),
+    transparent: true,
+    opacity: 0.95
+  });
+  const body = new THREE.Mesh(bodyGeo, bodyMat);
+  body.castShadow = true;
+  body.receiveShadow = true;
+  body.renderOrder = 10;
+  group.add(body);
+  
+  // Frame
+  const frameGeo = new THREE.BoxGeometry(width + 0.08, height + 0.08, depth + 0.04);
+  const frameMat = new THREE.MeshStandardMaterial({ 
+    color: skill.color, 
+    roughness: 0.3, 
+    metalness: 0.4, 
+    emissive: new THREE.Color(skill.color).multiplyScalar(0.4), 
+    transparent: true, 
+    opacity: 0.25 
+  });
+  const frame = new THREE.Mesh(frameGeo, frameMat);
+  frame.renderOrder = 9;
+  group.add(frame);
+  
+  // Accent
+  const accentGeo = new THREE.BoxGeometry(width - 0.15, 0.06, depth + 0.06);
+  const accentMat = new THREE.MeshStandardMaterial({ 
+    color: skill.color, 
+    roughness: 0.2, 
+    emissive: new THREE.Color(skill.color).multiplyScalar(0.7) 
+  });
+  const accent = new THREE.Mesh(accentGeo, accentMat);
+  accent.position.set(0, height/2 - 0.35, depth/2 + 0.02);
+  accent.renderOrder = 11;
+  group.add(accent);
+  
+  // Progress bar bg
+  const barWidth = width - 0.5;
+  const barBgGeo = new THREE.BoxGeometry(barWidth, 0.12, 0.08);
+  const barBgMat = new THREE.MeshStandardMaterial({ color: 0x1e1e2e, roughness: 0.6, metalness: 0.3 });
+  const barBg = new THREE.Mesh(barBgGeo, barBgMat);
+  barBg.position.set(0, -height/2 + 0.6, depth/2 + 0.03);
+  barBg.renderOrder = 11;
+  group.add(barBg);
+  
+  // Progress bar fill
+  const fillWidth = (skill.pct / 100) * (barWidth - 0.08);
+  const fillGeo = new THREE.BoxGeometry(Math.max(fillWidth, 0.02), 0.08, 0.1);
+  const fillMat = new THREE.MeshStandardMaterial({ 
+    color: skill.color, 
+    roughness: 0.2, 
+    emissive: new THREE.Color(skill.color).multiplyScalar(0.5) 
+  });
+  const fill = new THREE.Mesh(fillGeo, fillMat);
+  fill.position.set(-(barWidth/2) + (fillWidth/2) + 0.02, -height/2 + 0.6, depth/2 + 0.04);
+  fill.renderOrder = 12;
+  group.add(fill);
+  
+  // ============================================
+  // CSS LABEL - WITH BACKGROUND FOR READABILITY
+  // ============================================
+  const labelContainer = document.createElement('div');
+  labelContainer.style.cssText = `
+    color: white;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    text-align: center;
+    width: 210px;
+    pointer-events: none;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    background: rgba(8, 8, 16, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 8px;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    border: 1px solid rgba(255,255,255,0.06);
+  `;
+  
+  // Number + Icon row
+  const topRow = document.createElement('div');
+  topRow.style.cssText = `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  `;
+  
+  const numSpan = document.createElement('span');
+  numSpan.textContent = skill.num;
+  numSpan.style.cssText = `
+    font-weight: 700;
+    font-size: 15px;
+    color: ${skill.color};
+    background: rgba(0,0,0,0.6);
+    border-radius: 14px;
+    padding: 3px 11px;
+    flex-shrink: 0;
+  `;
+  
+  const iconSpan = document.createElement('span');
+  iconSpan.innerHTML = createIconSVG(skills.indexOf(skill));
+  iconSpan.style.cssText = `
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: ${skill.color};
+    filter: drop-shadow(0 0 5px ${skill.color}88);
+    flex-shrink: 0;
+  `;
+  
+  topRow.appendChild(numSpan);
+  topRow.appendChild(iconSpan);
+  
+  // Title
+  const titleEl = document.createElement('div');
+  titleEl.textContent = skill.title;
+  titleEl.style.cssText = `
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    color: #ffffff;
+    word-wrap: break-word;
+  `;
+  
+  // Description
+  const descEl = document.createElement('div');
+  descEl.textContent = skill.desc;
+  descEl.style.cssText = `
+    font-size: 10px;
+    font-weight: 400;
+    color: #bbbbdd;
+    line-height: 1.5;
+    max-width: 180px;
+    margin: 0 auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  `;
+  
+  labelContainer.appendChild(topRow);
+  labelContainer.appendChild(titleEl);
+  labelContainer.appendChild(descEl);
+  
+  const label = new CSS2DObject(labelContainer);
+  label.position.set(0, 0.1, depth/2 + 0.15);
+  group.add(label);
+  
+  // Position in circle
+  const x = Math.cos(angle) * radius;
+  const z = Math.sin(angle) * radius;
+  group.position.set(x, 0.15, z);
+  group.lookAt(x * 1.8, 0.15, z * 1.8);
+  
+  // Store references for depth-based opacity
+  group.userData = {
+    bodyMat: bodyMat,
+    frameMat: frameMat,
+    labelContainer: labelContainer,
+    worldPos: new THREE.Vector3()
+  };
+  
+  return group;
+}
+
+skills.forEach((skill, i) => {
+  const angle = (i / skills.length) * Math.PI * 2 + 0.2;
+  const card = createCard(skill, angle, 4.1);
+  cardGroup.add(card);
+  allCardObjects.push(card);
+});
+
+// Extra rings
+const extraRings = new THREE.Group();
+extraRings.renderOrder = 5;
+for (let j = 0; j < 3; j++) {
+  const rGeo = new THREE.TorusGeometry(3.9 + j * 0.35, 0.025, 16, 100);
+  const rMat = new THREE.MeshStandardMaterial({ 
+    color: j === 0 ? 0x3366ff : (j === 1 ? 0xaa44ff : 0x00ccff), 
+    roughness: 0.3, 
+    emissive: new THREE.Color(0x112233), 
+    transparent: true, 
+    opacity: 0.25 
+  });
+  const ringMesh = new THREE.Mesh(rGeo, rMat);
+  ringMesh.rotation.x = Math.PI / 2;
+  ringMesh.position.y = -1.3 + j * 0.2;
+  extraRings.add(ringMesh);
+}
+scene.add(extraRings);
+
+// ============================================
+// DEPTH-BASED OPACITY FOR TEXT
+// ============================================
+function updateCardOpacity() {
+  const cameraPos = camera.position;
+  
+  allCardObjects.forEach(card => {
+    // Get card world position
+    card.getWorldPosition(card.userData.worldPos);
+    
+    // Calculate distance from camera
+    const distance = cameraPos.distanceTo(card.userData.worldPos);
+    
+    // Calculate dot product to determine if card is facing camera
+    const cardNormal = new THREE.Vector3(0, 0, 1);
+    cardNormal.applyQuaternion(card.quaternion);
+    const toCamera = cameraPos.clone().sub(card.userData.worldPos).normalize();
+    const facingDot = Math.abs(cardNormal.dot(toCamera));
+    
+    // Cards facing away get lower opacity
+    const facingOpacity = 0.3 + (facingDot * 0.7);
+    
+    // Cards further away get lower opacity
+    const distanceFactor = Math.max(0, 1 - (distance - 6) / 20);
+    const finalOpacity = Math.min(1, facingOpacity * (0.4 + distanceFactor * 0.6));
+    
+    // Apply to materials
+    card.userData.bodyMat.opacity = 0.3 + (finalOpacity * 0.65);
+    card.userData.frameMat.opacity = 0.1 + (finalOpacity * 0.2);
+    
+    // Apply to label
+    card.userData.labelContainer.style.opacity = String(0.35 + finalOpacity * 0.65);
+    card.userData.labelContainer.style.transition = 'opacity 0.3s ease';
+  });
+}
+
+// Extra rings
+const extraRings2 = new THREE.Group();
+for (let j = 0; j < 3; j++) {
+  const rGeo = new THREE.TorusGeometry(3.9 + j * 0.35, 0.025, 16, 100);
+  const rMat = new THREE.MeshStandardMaterial({ color: j === 0 ? 0x3366ff : (j === 1 ? 0xaa44ff : 0x00ccff), roughness: 0.3, emissive: new THREE.Color(0x112233), transparent: true, opacity: 0.25 });
+  const ringMesh = new THREE.Mesh(rGeo, rMat);
+  ringMesh.rotation.x = Math.PI / 2;
+  ringMesh.position.y = -1.3 + j * 0.2;
+  extraRings2.add(ringMesh);
+}
+scene.add(extraRings2);
+
+// ============================================
+// ANIMATION LOOP
+// ============================================
+let frameCount = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  
+  particles.rotation.y += 0.00015;
+  particles.rotation.x = Math.sin(Date.now() * 0.0005) * 0.03;
+  extraRings.rotation.y += 0.002;
+  cardGroup.rotation.y += 0.0008;
+  
+  // Update opacity every 10 frames for performance
+  frameCount++;
+  if (frameCount % 10 === 0) {
+    updateCardOpacity();
+  }
+  
+  controls.update();
+  renderer.render(scene, camera);
+  labelRenderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  labelRenderer.setSize(container.clientWidth, container.clientHeight);
+});
+</script>
+
+<!-- ALL OTHER SCRIPTS -->
 <script>
   /* =====================================================
      CINEMATIC TYPING ANIMATION
      ===================================================== */
-  // Cinematic Typing Animation
   (function() {
     const text1 = "I'm a passionate student and aspiring creative developer who enjoys creating digital experiences that combine creativity and technology. I have experience in web development, UI/UX design, and interactive projects, and I continue to improve my skills in frontend development, 3D design, and cinematic web experiences.";
     
@@ -549,7 +1018,7 @@
     function createCursor() {
       const cursor = document.createElement('span');
       cursor.className = 'typed-cursor';
-      cursor.innerHTML = '&nbsp;'; // Add non-breaking space for proper spacing
+      cursor.innerHTML = '&nbsp;';
       return cursor;
     }
     
@@ -564,12 +1033,11 @@
           const char = text.charAt(index);
           
           if (char === ' ') {
-            // Create a space span with explicit width
             const spaceSpan = document.createElement('span');
             spaceSpan.className = 'char';
             spaceSpan.innerHTML = '&nbsp;';
             spaceSpan.style.display = 'inline-block';
-            spaceSpan.style.width = '0.3em'; // Proper space width
+            spaceSpan.style.width = '0.3em';
             element.insertBefore(spaceSpan, cursor);
           } else {
             const charSpan = document.createElement('span');
@@ -641,7 +1109,7 @@
 
   /* ===== CUSTOM CURSOR ===== */
   const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
+  const ring2 = document.getElementById('cursor-ring');
   const glow = document.getElementById('mouse-glow');
   let mx = 0, my = 0, rx = 0, ry = 0;
   document.addEventListener('mousemove', e => {
@@ -651,19 +1119,19 @@
   });
   (function animRing(){
     rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    ring2.style.left = rx + 'px'; ring2.style.top = ry + 'px';
     requestAnimationFrame(animRing);
   })();
   document.querySelectorAll('a, button, [data-tilt], .card, .contact-link, .footer-social, .skill-tag').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '6px'; cursor.style.height = '6px';
-      ring.style.width = '52px'; ring.style.height = '52px';
-      ring.style.borderColor = 'rgba(201,168,76,0.8)';
+      ring2.style.width = '52px'; ring2.style.height = '52px';
+      ring2.style.borderColor = 'rgba(201,168,76,0.8)';
     });
     el.addEventListener('mouseleave', () => {
       cursor.style.width = '10px'; cursor.style.height = '10px';
-      ring.style.width = '36px'; ring.style.height = '36px';
-      ring.style.borderColor = 'rgba(201,168,76,0.5)';
+      ring2.style.width = '36px'; ring2.style.height = '36px';
+      ring2.style.borderColor = 'rgba(201,168,76,0.5)';
     });
   });
 
@@ -726,7 +1194,7 @@
     window.addEventListener('resize', resize);
     const verts = [[-1,1.618,0],[1,1.618,0],[-1,-1.618,0],[1,-1.618,0],[0,-1,1.618],[0,1,1.618],[0,-1,-1.618],[0,1,-1.618],[1.618,0,-1],[1.618,0,1],[-1.618,0,-1],[-1.618,0,1]].map(v => { const l = Math.hypot(v[0],v[1],v[2]); return [v[0]/l, v[1]/l, v[2]/l]; });
     const faces = [[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
-    let rx = 0, ry = 0, mouseX = 0.5, mouseY = 0.5;
+    let rx2 = 0, ry2 = 0, mouseX = 0.5, mouseY = 0.5;
     document.addEventListener('mousemove', e => { mouseX = e.clientX / window.innerWidth; mouseY = e.clientY / window.innerHeight; });
     function rotX(v,a){ return [v[0], v[1]*Math.cos(a)-v[2]*Math.sin(a), v[1]*Math.sin(a)+v[2]*Math.cos(a)]; }
     function rotY(v,a){ return [v[0]*Math.cos(a)+v[2]*Math.sin(a), v[1], -v[0]*Math.sin(a)+v[2]*Math.cos(a)]; }
@@ -734,11 +1202,11 @@
     let t0 = 0;
     function draw(ts){
       const dt = (ts - t0) * 0.001; t0 = ts;
-      rx += ((mouseY - 0.5) * 0.4 - rx) * 0.04;
-      ry += (dt * 0.3 + (mouseX - 0.5) * 0.6);
+      rx2 += ((mouseY - 0.5) * 0.4 - rx2) * 0.04;
+      ry2 += (dt * 0.3 + (mouseX - 0.5) * 0.6);
       const W = canvas.width, H = canvas.height, scale = Math.min(W, H) * 1.1;
       ctx.clearRect(0,0,W,H);
-      const rotated = verts.map(v => rotY(rotX(v, rx), ry));
+      const rotated = verts.map(v => rotY(rotX(v, rx2), ry2));
       const projected = rotated.map(v => project(v, W, H, scale));
       const sorted = faces.map(f => ({ f, z: (rotated[f[0]][2] + rotated[f[1]][2] + rotated[f[2]][2]) / 3 })).sort((a,b) => a.z - b.z);
       sorted.forEach(({f}) => {
@@ -840,6 +1308,7 @@
   document.querySelectorAll('.card').forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(30px)'; card.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; cardObserver.observe(card); });
   
   console.log('🎬 Cinematic Typing Animation Active - All systems ready!');
+  console.log('🧊 3D Skills Section Active - Drag to rotate!');
 </script>
 </body>
 </html>
